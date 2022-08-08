@@ -17,7 +17,7 @@ func Start(host string, port int) {
 	router.HandleFunc("/bad", handlers.BadHandler).Methods("GET")
 	router.HandleFunc("/name/{name}", handlers.NameParametrHandler).Methods("GET")
 	router.HandleFunc("/data", handlers.DataBodyParamHandler).Methods("POST")
-	router.HandleFunc("/headers", handlers.SumOfHeadersHandler)
+	router.HandleFunc("/headers", handlers.SumOfHeadersHandler).Methods("POST")
 
 	log.Println(fmt.Sprintf("Starting API server on %s:%d", host, port))
 	if err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), router); err != nil {
