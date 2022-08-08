@@ -15,6 +15,7 @@ func Start(host string, port int) {
 	router := mux.NewRouter()
 
 	router.HandleFunc("/bad", handlers.BadHandler)
+	router.HandleFunc("/name/{name}", handlers.NameParametrHandler)
 
 	log.Println(fmt.Sprintf("Starting API server on %s:%d", host, port))
 	if err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), router); err != nil {
