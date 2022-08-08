@@ -5,6 +5,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -25,4 +26,23 @@ func DataBodyParamHandler(w http.ResponseWriter, r *http.Request) {
 		log.Println("Fail: Parse body")
 	}
 	w.Write([]byte("I got message:\n" + string(body)))
+}
+
+func SumOfHeadersHandler(w http.ResponseWriter, r *http.Request) {
+	a, err := strconv.Atoi(r.Header.Get("a"))
+	if err != nil {
+		log.Println("Could not parse from header a")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	b, err := strconv.Atoi(r.Header.Get("b"))
+	if err != nil {
+		log.Println("Could not parse from header a")
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	log.Println(a, b)
+
+	w.Header().Add("a+b", strconv.FormatInt(int64(a+b), 10))
 }
