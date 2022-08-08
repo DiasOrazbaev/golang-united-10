@@ -7,11 +7,14 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/DiasOrazbaev/golang-united-10/internal/handlers"
 	"github.com/gorilla/mux"
 )
 
 func Start(host string, port int) {
 	router := mux.NewRouter()
+
+	router.HandleFunc("/bad", handlers.BadHandler)
 
 	log.Println(fmt.Sprintf("Starting API server on %s:%d", host, port))
 	if err := http.ListenAndServe(fmt.Sprintf("%s:%d", host, port), router); err != nil {
